@@ -1,0 +1,186 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bài tập DATA VISUALIZE</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="icon" type="image/png" href="tqhfavicon.png">
+    
+    <!-- Tối ưu tải font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Font với display=swap -->
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+    
+    <link rel="stylesheet" href="../static/css/chartstyle.css">
+    <link rel="stylesheet" href="../static/css/selectlist.css">
+    <link rel="stylesheet" href="../static/css/navbar.css">
+    <link rel="stylesheet" href="../static/css/input.css">
+    <link rel="stylesheet" href="../static/css/button.css">
+    <link rel="stylesheet" href="../static/css/dropdown.scss">
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="" class="nav-logo">Nguyễn Minh Toàn - DJango Project Visualize</a>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../" class="nav-link">Import CSV</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../nhapdulieu" class="nav-link">Nhập dữ liệu</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+
+        <div class="container" style="margin-left: 5%; margin-right: 5%; margin-bottom: 15%;">
+            <h1 style="color: #4E79A7;">Nhập dữ liệu vào database</h1><br>
+            <!-- Form tải lên CSV -->
+            <h3 style="color:rgb(0, 0, 0);">ORDER FORM:</h2>
+            <form action="{% url 'inputform' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-control">
+                    <input type="text" name="ma_don_hang" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Mã</span>
+                        <span style="transition-delay:50ms"> đơn</span>
+                        <span style="transition-delay:100ms"> hàng</span>
+                    </label>
+                </div>
+                
+                <div class="form-control">
+                    <input type="text" name="ma_khach_hang" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Mã</span>
+                        <span style="transition-delay:50ms"> khách</span>
+                        <span style="transition-delay:100ms"> hàng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="ten_khach_hang" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Tên</span>
+                        <span style="transition-delay:50ms"> khách</span>
+                        <span style="transition-delay:100ms"> hàng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="ma_pkkh" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Mã</span>
+                        <span style="transition-delay:50ms"> PKKH</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="mo_ta_pkkh" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Mô tả</span>
+                        <span style="transition-delay:50ms"> Phân Khúc</span>
+                        <span style="transition-delay:100ms"> Khách Hàng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <span style="text-size: 18px;">Thời gian tạo đơn</span><br>
+                    <input type="datetime-local" name="thoi_gian_tao_don" placeholder="Thời gian tạo đơn" required="">
+                </div>
+
+                <div class="form-control">
+                    <select name="ma_nhom_hang" required="">
+                        <option selected value="0">Chọn mã nhóm hàng</option>
+                        <option value="BOT">BOT</option>
+                        <option value="SET">SET</option>
+                        <option value="THO">THO</option>
+                        <option value="TMX">TMX</option>
+                        <option value="TTC">TTC</option>
+                    </select>
+                </div>
+
+                
+                <div class="form-control">
+                    <select name="ten_nhom_hang" required="">
+                        <option selected value="0">Chọn tên nhóm hàng</option>
+                        <option value="Bột">Bột</option>
+                        <option value="SET">Set trà</option>
+                        <option value="THO">Trà hoa</option>
+                        <option value="TMX">Trà mix</option>
+                        <option value="TTC">Trà củ, quả sấy</option>
+                    </select>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="ma_mat_hang" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Mã</span>
+                        <span style="transition-delay:50ms"> mặt</span>
+                        <span style="transition-delay:100ms"> hàng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="ten_mat_hang" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Tên</span>
+                        <span style="transition-delay:50ms"> mặt</span>
+                        <span style="transition-delay:100ms"> hàng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="so_luong" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Số</span>
+                        <span style="transition-delay:50ms"> lượng</span>
+                    </label>
+                </div>
+
+                <div class="form-control">
+                    <input type="text" name="thanh_tien" required="">
+                    <label>
+                        <span style="transition-delay:0ms">Thành</span>
+                        <span style="transition-delay:50ms"> tiền</span>
+                    </label>
+                </div>
+                <button type="submit" onclick="return validateForm()"><span>NHẬP DỮ LIỆU VÀO DATABASE</span></button>
+            </form>
+        </div>
+
+    <script src="../static/js/navbar.js"></script>
+    <script>
+        function validateForm() {
+            // Kiểm tra mã nhóm hàng
+            const maNhomHang = document.querySelector('select[name="ma_nhom_hang"]');
+            if (maNhomHang.value === "0") {
+                alert("Vui lòng chọn một mã nhóm hàng hợp lệ!");
+                return false; // Ngăn form gửi đi
+            }
+        
+            // Kiểm tra tên nhóm hàng
+            const tenNhomHang = document.querySelector('select[name="ten_nhom_hang"]');
+            if (tenNhomHang.value === "0") {
+                alert("Vui lòng chọn một tên nhóm hàng hợp lệ!");
+                return false; // Ngăn form gửi đi
+            }
+        
+            // Nếu cả hai đều hợp lệ, cho phép gửi form
+            return true;
+        }
+    </script>
+</body>
+</html>
